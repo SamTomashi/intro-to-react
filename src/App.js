@@ -2,50 +2,72 @@ import logo from "./logo.svg";
 import "./Bootstrap.css";
 import "./App.css";
 import React from "react";
+import Plant from "./components/Plant";
 
 function App() {
+  const [formData, setFormData] = React.useState({
+    name: "",
+    imageUrl: "",
+    price: 0,
+  });
 
-  const [formData, setFormData] =React.useState({
-    email: "",
-    password: ""
-  })
+  const [plants, setPlants] = React.useState([]);
+  const [totalQTYs, setTotalQTYs] = React.useState(0)
 
-  function handleOnchange(event) {
-      setFormData({
+  function handleOnChange(event) {
+    setFormData({
       ...formData,
       [event.target.name]: event.target.value,
-    })
+    });
   }
 
-  function handleOnSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-     if(isEmailValid(formData.email) && isPasswordValid(formData.password)){
-          console.log(formData);
-    }else{
-      console.log("Email or password is not valid")
-    }
+    setPlants((previousData) => [...previousData, formData]);
+
+    // setPlants(
+    //   [...plants, formData]
+    // )
   }
 
-  function isEmailValid(email) {
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
-  }
-
-  function isPasswordValid(password) {
-    const regex = /^.{8,}$/;
-    return regex.test(password);
-  }
+  const plantCards = plants.map((plant, index) => (
+    <Plant key={index + 1} plant={plant} setTotalQTYs={setTotalQTYs}/>
+  ));
 
   return (
-    <form onSubmit={handleOnSubmit} className="p-4">
-      <p>email</p>
-      <input type="text" name="email" onChange={handleOnchange} />
-      <br />
-      <p>Password</p>
-      <input type="password" name="password" onChange={handleOnchange} />
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <>
+    <h1 className="text-center">Total QTY: {totalQTYs}</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          placeholder="name"
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleOnChange}
+          className="form-control m-2"
+        />
+        <input
+          placeholder="Image URL"
+          type="text"
+          name="imageUrl"
+          value={formData.imageUrl}
+          onChange={handleOnChange}
+          className="form-control m-2"
+        />
+        <input
+          type="number"
+          name="price"
+          value={formData.price}
+          onChange={handleOnChange}
+          className="form-control m-2"
+        />
+        <button type="submit" className="btn btn-success btn-sm mx-2">Add Plant</button>
+      </form>
+
+      <div className="row">
+      {plantCards}
+      </div>
+    </>
   );
 }
 
