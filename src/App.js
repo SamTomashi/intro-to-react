@@ -23,16 +23,36 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setPlants((previousData) => [...previousData, formData]);
-
-    // setPlants(
-    //   [...plants, formData]
-    // )
+    addPlants(formData)
+     fetchPlants()
   }
 
   const plantCards = plants.map((plant, index) => (
     <Plant key={index + 1} plant={plant} setTotalQTYs={setTotalQTYs}/>
   ));
+
+
+  const fetchPlants = () => {
+      fetch("http://localhost:4000/plants", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => response.json())
+  .then((data) => setPlants(data))
+  }
+
+  const addPlants = (data) =>  {
+    fetch("http://localhost:4000/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+   .then((response) => response.json())
+  }
+ 
 
   return (
     <>

@@ -1,0 +1,37 @@
+{
+  "plants": [
+    {
+      "id": 1,
+      "name": "Sunflower",
+      "price": 100,
+      "imageUrl": "https://example.com/sunflower.jpg",
+      "quantity": 10
+    },
+    {
+      "id": 2,
+      "name": "Cactus",
+      "price": 50,
+      "imageUrl": "https://example.com/cactus.jpg",
+      "quantity": 5
+    },
+    {
+      "id": 3,
+      "name": "Fern",
+      "price": 20,
+      "imageUrl": "https://example.com/fern.jpg",
+      "quantity": 15
+    },
+    {
+      "id": "ce34",
+      "name": "mango",
+      "imageUrl": "https://images.pexels.com/photos/12904838/pexels-photo-12904838.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+      "price": "78"
+    },
+    {
+      "id": "00ad",
+      "name": "Avocado",
+      "imageUrl": "https://images.pexels.com/photos/12904838/pexels-photo-12904838.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+      "price": "7889"
+    }
+  ]
+}
