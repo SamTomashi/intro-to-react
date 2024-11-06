@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./Bootstrap.css";
 import "./App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Plant from "./components/Plant";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   });
 
   const [plants, setPlants] = React.useState([]);
-  const [totalQTYs, setTotalQTYs] = React.useState(0)
+  const [totalQTYs, setTotalQTYs] = React.useState(0);
 
   function handleOnChange(event) {
     setFormData({
@@ -23,40 +23,49 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    addPlants(formData)
-     fetchPlants()
+    // addPlants(formData)
+    //  fetchPlants()
   }
 
   const plantCards = plants.map((plant, index) => (
-    <Plant key={index + 1} plant={plant} setTotalQTYs={setTotalQTYs}/>
+    <Plant key={index + 1} plant={plant} setTotalQTYs={setTotalQTYs} />
   ));
 
-
   const fetchPlants = () => {
-      fetch("http://localhost:4000/plants", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => response.json())
-  .then((data) => setPlants(data))
+fetch("http://localhost:4000/plants", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setPlants(data));
+
+
+      console.log(plants)
   }
 
-  const addPlants = (data) =>  {
+  /**
+   The useEffect hook helps:
+   1. fetch data only when the component is ready:run side effects only once when the component is first rendered
+   2.  We can fetch the data only once, or depending on state
+   */
+
+  useEffect(fetchPlants, [])
+
+  const addPlants = (data) => {
     fetch("http://localhost:4000/plants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-   .then((response) => response.json())
-  }
- 
+    }).then((response) => response.json());
+  };
 
   return (
     <>
-    <h1 className="text-center">Total QTY: {totalQTYs}</h1>
+      <h1 className="text-center">Total QTY: {totalQTYs}</h1>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="name"
@@ -81,12 +90,12 @@ function App() {
           onChange={handleOnChange}
           className="form-control m-2"
         />
-        <button type="submit" className="btn btn-success btn-sm mx-2">Add Plant</button>
+        <button type="submit" className="btn btn-success btn-sm mx-2">
+          Add Plant
+        </button>
       </form>
 
-      <div className="row">
-      {plantCards}
-      </div>
+      <div className="row">{plantCards}</div>
     </>
   );
 }
