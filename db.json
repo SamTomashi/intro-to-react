@@ -33,5 +33,18 @@
       "imageUrl": "https://images.pexels.com/photos/12904838/pexels-photo-12904838.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
       "price": "7889"
     }
+  ],
+
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@moringa.com",
+      "password": "admin123"
+    },
+    {
+      "id": 2,
+      "email": "user1@moringa.com",
+      "password": "user123"
+    }
   ]
 }
